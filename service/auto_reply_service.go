@@ -47,7 +47,7 @@ func AutoReplyHandler(w http.ResponseWriter, r *http.Request) {
 	//impPath,err := searchDataAndCreateImg(receiveMsg)
 
 	materialObj := material.NewMaterial()
-	mediaId, mediaUrl, err := materialObj.AddMaterial(material.PermanentMaterialTypeImage, "./static/cost_ratio.png")
+	mediaId, mediaUrl, err := materialObj.AddMaterial(material.PermanentMaterialTypeImage, "/static/cost_ratio.png")
 	if err != nil {
 		log.Print(err)
 		return
