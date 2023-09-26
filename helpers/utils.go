@@ -7,7 +7,7 @@ import (
 )
 
 func WriteFile(buf []byte, fileName string) (string, error) {
-	tmpPath := "./tmp"
+	tmpPath := "/tmp"
 	err := os.MkdirAll(tmpPath, 0700)
 	if err != nil {
 		return "", err

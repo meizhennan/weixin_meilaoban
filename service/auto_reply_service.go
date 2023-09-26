@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"time"
 	"wxcloudrun-golang/helpers"
+	"wxcloudrun-golang/material"
 )
 
 type AutoReplyRequest struct {
@@ -48,24 +49,24 @@ func AutoReplyHandler(w http.ResponseWriter, r *http.Request) {
 	impPath, err := searchDataAndCreateImg(receiveMsg)
 	log.Printf("filePath [%s]", impPath)
 
-	//materialObj := material.NewMaterial()
-	//mediaId, mediaUrl, err := materialObj.AddMaterial(material.PermanentMaterialTypeImage, "/static/cost_ratio.png")
-	//if err != nil {
-	//	log.Print(err)
-	//	return
-	//}
-	//log.Printf("meidaId: %s , mediaUrl: %s ", mediaId, mediaUrl)
+	materialObj := material.NewMaterial()
+	mediaId, mediaUrl, err := materialObj.AddMaterial(material.PermanentMaterialTypeImage, impPath)
+	if err != nil {
+		log.Print(err)
+		return
+	}
+	log.Printf("meidaId: %s , mediaUrl: %s ", mediaId, mediaUrl)
 
-	//media := &Media{
-	//	MediaId: mediaId,
-	//}
+	media := &Media{
+		MediaId: mediaId,
+	}
 	res := &AutoReplyResponse{
 		ToUserName:   autoReplyRequest.FromUserName,
 		FromUserName: autoReplyRequest.ToUserName,
 		CreateTime:   time.Now().Unix(),
 		MsgType:      "image",
-		Content:      "测试回复",
-		//Image:        *media,
+		//Content:      "测试回复",
+		Image: *media,
 	}
 
 	msg, err := json.Marshal(res)
