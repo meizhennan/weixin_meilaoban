@@ -63,7 +63,7 @@ func DrawDoubleYaxis(title string,
 		panic(err)
 	}
 
-	err = WriteFile(buf, fileName)
+	_, err = WriteFile(buf, fileName)
 	if err != nil {
 		panic(err)
 	}
