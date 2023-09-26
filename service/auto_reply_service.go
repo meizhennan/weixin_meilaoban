@@ -150,6 +150,6 @@ func searchDataAndCreateImg(msg string) (string, error) {
 		},
 	}
 	fileName := "income_from_operation.png"
-	helpers.DrawDoubleYaxis("营业利润趋势", xAxisOption, legendOption, seriesList, fileName)
-	return "", nil
+	filePath, err := helpers.DrawDoubleYaxis("营业利润趋势", xAxisOption, legendOption, seriesList, fileName)
+	return filePath, err
 }

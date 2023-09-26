@@ -9,7 +9,7 @@ func DrawDoubleYaxis(title string,
 	xAxisOption []string,
 	legendOption []string,
 	seriesList []charts.Series,
-	fileName string) {
+	fileName string) (string, error) {
 
 	//加载中文字体文件
 	//buf, err := ioutil.ReadFile("./src/static/NotoSansCJKsc-VF.ttf")
@@ -63,8 +63,9 @@ func DrawDoubleYaxis(title string,
 		panic(err)
 	}
 
-	_, err = WriteFile(buf, fileName)
+	filePath, err := WriteFile(buf, fileName)
 	if err != nil {
 		panic(err)
 	}
+	return filePath, err
 }
