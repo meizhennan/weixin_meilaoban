@@ -2,7 +2,7 @@ package helpers
 
 import (
 	"github.com/vicanso/go-charts/v2"
-	"io/ioutil"
+	//"io/ioutil"
 )
 
 func DrawDoubleYaxis(title string,
@@ -12,16 +12,16 @@ func DrawDoubleYaxis(title string,
 	fileName string) {
 
 	//加载中文字体文件
-	buf, err := ioutil.ReadFile("./src/static/NotoSansCJKsc-VF.ttf")
-	if err != nil {
-		panic(err)
-	}
-	err = charts.InstallFont("noto", buf)
-	if err != nil {
-		panic(err)
-	}
-	font, _ := charts.GetFont("noto")
-	charts.SetDefaultFont(font)
+	//buf, err := ioutil.ReadFile("./src/static/NotoSansCJKsc-VF.ttf")
+	//if err != nil {
+	//	panic(err)
+	//}
+	//err = charts.InstallFont("noto", buf)
+	//if err != nil {
+	//	panic(err)
+	//}
+	//font, _ := charts.GetFont("noto")
+	//charts.SetDefaultFont(font)
 
 	chartOption := charts.ChartOption{
 		Title: charts.TitleOption{
@@ -58,7 +58,7 @@ func DrawDoubleYaxis(title string,
 		panic(err)
 	}
 
-	buf, err = p.Bytes()
+	buf, err := p.Bytes()
 	if err != nil {
 		panic(err)
 	}
