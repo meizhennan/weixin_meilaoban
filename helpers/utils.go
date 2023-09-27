@@ -6,8 +6,10 @@ import (
 	"path/filepath"
 )
 
-func WriteFile(buf []byte, fileName string) (string, error) {
-	tmpPath := "/tmp"
+const ImageBasePath = "/tmp/"
+
+func WriteFile(buf []byte, filePath, fileName string) (string, error) {
+	tmpPath := ImageBasePath + filePath
 	err := os.MkdirAll(tmpPath, 0700)
 	if err != nil {
 		return "", err

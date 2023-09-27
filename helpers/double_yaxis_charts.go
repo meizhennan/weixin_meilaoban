@@ -5,7 +5,7 @@ import (
 	//"io/ioutil"
 )
 
-func DrawDoubleYaxis(title string,
+func DrawDoubleYaxis(stock string, title string,
 	xAxisOption []string,
 	legendOption []string,
 	seriesList []charts.Series,
@@ -63,7 +63,7 @@ func DrawDoubleYaxis(title string,
 		panic(err)
 	}
 
-	filePath, err := WriteFile(buf, fileName)
+	filePath, err := WriteFile(buf, stock, fileName)
 	if err != nil {
 		panic(err)
 	}

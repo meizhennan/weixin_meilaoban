@@ -5,6 +5,7 @@ import (
 	"github.com/vicanso/go-charts/v2"
 	"log"
 	"net/http"
+	"os"
 	"time"
 	"wxcloudrun-golang/helpers"
 	"wxcloudrun-golang/material"
@@ -78,6 +79,15 @@ func AutoReplyHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func searchDataAndCreateImg(msg string) (string, error) {
+	// 根据用户发送消息查找是哪个股票
+	stock := "" //股票代码
+
+	//清空 /tmp/{stock}/*.png 所有图片
+	err := deleteFiles(helpers.ImageBasePath + stock)
+	if err != nil {
+		return "", err
+	}
+
 	xAxisOption := []string{
 		"2016",
 		"2017",
@@ -151,6 +161,36 @@ func searchDataAndCreateImg(msg string) (string, error) {
 		},
 	}
 	fileName := "income_from_operation.png"
-	filePath, err := helpers.DrawDoubleYaxis("营业利润趋势", xAxisOption, legendOption, seriesList, fileName)
+	filePath, err := helpers.DrawDoubleYaxis(stock, "营业利润趋势", xAxisOption, legendOption, seriesList, fileName)
+
 	return filePath, err
+}
+
+//func mergeImage(imagePaths ...string) (string, error) {
+//	grids := make([]*gim.Grid)
+//
+//}
+
+func deleteFiles(dir string) error {
+	_, err := os.Stat(dir)
+	if err != nil { //不存在dir 直接返回nil
+		return nil
+	}
+
+	d, err := os.Open(dir)
+	if err != nil {
+		return err
+	}
+	defer d.Close()
+	names, err := d.Readdirnames(-1)
+	if err != nil {
+		return err
+	}
+	for _, name := range names {
+		err = os.RemoveAll(dir + "/" + name)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
 }
