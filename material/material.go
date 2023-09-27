@@ -4,8 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-
-	"github.com/fideism/golang-wechat/util"
+	"github.com/silenceper/wechat/v2/util"
 )
 
 const (
@@ -56,31 +55,31 @@ type Article struct {
 	DownURL          string `json:"down_url"`
 }
 
-// GetNews 获取/下载永久素材
-func (material *Material) GetNews(id string) ([]*Article, error) {
-
-	uri := fmt.Sprintf("%s", getMaterialURL)
-
-	var req struct {
-		MediaID string `json:"media_id"`
-	}
-	req.MediaID = id
-	responseBytes, err := util.PostJSON(uri, req)
-	if err != nil {
-		return nil, err
-	}
-
-	var res struct {
-		NewsItem []*Article `json:"news_item"`
-	}
-
-	err = util.DecodeWithCustomerStruct(responseBytes, &res, "GetNews")
-	if err != nil {
-		return nil, err
-	}
-
-	return res.NewsItem, nil
-}
+//// GetNews 获取/下载永久素材
+//func (material *Material) GetNews(id string) ([]*Article, error) {
+//
+//	uri := fmt.Sprintf("%s", getMaterialURL)
+//
+//	var req struct {
+//		MediaID string `json:"media_id"`
+//	}
+//	req.MediaID = id
+//	responseBytes, err := util.PostJSON(uri, req)
+//	if err != nil {
+//		return nil, err
+//	}
+//
+//	var res struct {
+//		NewsItem []*Article `json:"news_item"`
+//	}
+//
+//	err = util.DecodeWithCustomerStruct(responseBytes, &res, "GetNews")
+//	if err != nil {
+//		return nil, err
+//	}
+//
+//	return res.NewsItem, nil
+//}
 
 //reqArticles 永久性图文素材请求信息
 type reqArticles struct {
