@@ -80,7 +80,7 @@ func AutoReplyHandler(w http.ResponseWriter, r *http.Request) {
 
 func searchDataAndCreateImg(msg string) (string, error) {
 	// 根据用户发送消息查找是哪个股票
-	stock := "" //股票代码
+	stock := "000519" //股票代码
 	path := helpers.ImageBasePath + stock
 	//清空 /tmp/{stock}/*.png 所有图片
 	err := deleteFiles(path)
