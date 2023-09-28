@@ -81,9 +81,9 @@ func AutoReplyHandler(w http.ResponseWriter, r *http.Request) {
 func searchDataAndCreateImg(msg string) (string, error) {
 	// 根据用户发送消息查找是哪个股票
 	stock := "" //股票代码
-
+	path := helpers.ImageBasePath + stock
 	//清空 /tmp/{stock}/*.png 所有图片
-	err := deleteFiles(helpers.ImageBasePath + stock)
+	err := deleteFiles(path)
 	if err != nil {
 		return "", err
 	}
@@ -163,13 +163,15 @@ func searchDataAndCreateImg(msg string) (string, error) {
 	fileName := "income_from_operation.png"
 	filePath, err := helpers.DrawDoubleYaxis(stock, "营业利润趋势", xAxisOption, legendOption, seriesList, fileName)
 
-	return filePath, err
-}
+	imagePaths := []string{filePath, filePath, filePath, filePath}
 
-//func mergeImage(imagePaths ...string) (string, error) {
-//	grids := make([]*gim.Grid)
-//
-//}
+	//合并图片
+	outputPath, err := helpers.MergeImage(path, imagePaths)
+	if err != nil {
+		return "", err
+	}
+	return outputPath, err
+}
 
 func deleteFiles(dir string) error {
 	_, err := os.Stat(dir)
