@@ -8,15 +8,16 @@ import (
 )
 
 func MergeImage(basePath string, imagePaths []string) (outputPath string, err error) {
-	grids := make([]*gim.Grid, 0)
-	for i, imagePath := range imagePaths {
+	var grids []*gim.Grid
+	for _, imagePath := range imagePaths {
 		grid := &gim.Grid{
 			ImageFilePath: imagePath,
 		}
-		grids[i] = grid
+		grids = append(grids, grid)
 	}
+	log.Printf("grid %+v", grids)
 
-	rgba, err := gim.New(grids, 1, 6).Merge()
+	rgba, err := gim.New(grids, 1, 4).Merge()
 	if err != nil {
 		log.Printf("merge image faild, err [%+v]", err)
 		return "", err
